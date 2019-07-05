@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>微信采集</title>
+    <!-- Styles -->
+    <link href="/static/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/static/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/static/css/lib/mmc-chat.css" rel="stylesheet" />
+    <link href="/static/css/lib/sidebar.css" rel="stylesheet">
+    <link href="/static/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/lib/nixon.css" rel="stylesheet">
+    <link href="/static/lib/lobipanel/css/lobipanel.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            <ul>
+                <li class="active"><a class="#"><i class="ti-home"></i> 公众号</a></li>
+                <li><a href="#"><i class="ti-user"></i> 关键词</a></li>
+                <li><a href="#"><i class="ti-layout-grid2-alt"></i> 最新文章</a></li>
+
+                <li><a target="_blank" href="#"><i class="ti-file"></i> Documentation</a></li>
+                <li><a><i class="ti-close"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /# sidebar -->
+<div class="header">
+    <div class="pull-left">
+        <div class="logo">
+            <a href="index.html">
+
+            </a>
+        </div>
+        <div class="hamburger sidebar-toggle">
+            <span class="ti-menu"></span>
+        </div>
+    </div>
+    <div class="pull-right p-r-15">
+        <ul>
+
+            <li class="header-icon dib">
+                <img class="avatar-img" src="/static/images/avatar/1.jpg" alt="" /> <span class="user-avatar">{{ nickname }}<i class="ti-angle-down f-s-10"></i></span>
+                <div class="drop-down dropdown-profile">
+{#                    <div class="dropdown-content-heading">#}
+{#                        <span class="text-left">Upgrade Now</span>#}
+{#                        <p class="trial-day">30 Days Trail</p>#}
+{#                    </div>#}
+                    <div class="dropdown-content-body">
+                        <ul>
+                            <li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
+{#                            <li><a href="#"><i class="ti-wallet"></i> <span>My Balance</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-write"></i> <span>My Task</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-calendar"></i> <span>My Calender</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-email"></i> <span>Inbox</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-settings"></i> <span>Setting</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-help-alt"></i> <span>Help</span></a></li>#}
+{#                            <li><a href="#"><i class="ti-lock"></i> <span>Lock Screen</span></a></li>#}
+                            <li><a href="/user/logout"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="chat-sidebar">
+    <!-- BEGIN chat -->
+    <div id="mmc-chat" class="color-default">
+        <!-- BEGIN CHAT BOX -->
+        <div class="chat-box">
+            <!-- BEGIN CHAT BOXS -->
+            <ul class="boxs"></ul>
+            <!-- END CHAT BOXS -->
+
+        </div>
+        <!-- END CHAT BOX -->
+        <!-- BEGIN SIDEBAR -->
+        <div id="sidebar" class="right scroll">
+            <div class="had-container">
+                <!-- BEGIN USERS -->
+                <div class="users">
+                    <ul class="user-list">
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="1" data-status="online" data-username="Rufat Askerov" data-position="left" data-filter-item data-filter-name="rufat askerov">
+                            <!-- BEGIN USER IMAGE-->
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Rufat Askerov" />
+                            </div>
+                            <!-- END USER IMAGE-->
+                            <!-- BEGIN USERNAME-->
+                            <span class="user-name">Rufat Askerov</span>
+                            <span class="user-show"></span>
+                            <!-- END USERNAME-->
+                        </li>
+                        <!-- END USER-->
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="3" data-status="online" data-username="Alice" data-position="left" data-filter-item data-filter-name="alice">
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Alice" />
+                            </div>
+                            <span class="user-name">Alice</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Michael Scofield" data-position="left" data-filter-item data-filter-name="michael scofield">
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Michael Scofield" />
+                            </div>
+                            <span class="user-name">Michael Scofield</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="5" data-status="online" data-username="Irina Shayk" data-position="left" data-filter-item data-filter-name="irina shayk">
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Irina Shayk" />
+                            </div>
+                            <span class="user-name">Irina Shayk</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="6" data-status="offline" data-username="Sara Tancredi" data-position="left" data-filter-item data-filter-name="sara tancredi">
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Sara Tancredi" />
+                            </div>
+                            <span class="user-name">Sara Tancredi</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Jane" data-position="left" data-filter-item data-filter-name="Jane">
+                            <div class="user-image">
+                                <img src="/static/images/avatar/1.jpg" class="avatar" alt="Jane" />
+                            </div>
+                            <span class="user-name">Jane</span>
+                            <span class="user-show"></span>
+                        </li>
+                    </ul>
+                    <div class="chat-user-search">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="ti-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search" data-search />
+                        </div>
+                    </div>
+                </div>
+                <!-- END USERS -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END chat -->
+</div>
+<!-- END chat Sidebar-->
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>公众号</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-4 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+            <!-- /# row -->
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="widget-icon color-1">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-text">已下载文章</div>
+                                    <div class="stat-digit"> 8500</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="widget-icon color-2">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-text">已添加公众号</div>
+                                    <div class="stat-digit"> {{ wechat.count }}</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="widget-icon color-3">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-text">今日更新数量</div>
+                                    <div class="stat-digit"> 500</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-two">
+                                <div class="widget-icon color-4">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-text">失败数量</div>
+                                    <div class="stat-digit"> 650</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                            <div class="card alert">
+                                <div class="card-header">
+                                    <h4>添加公众号</h4>
+                                    <div class="card-header-right-icon">
+                                        <ul>
+                                            <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="horizontal-form">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <div class="row">
+													<label class="col-sm-3 control-label">公众号名称 或 ID</label>
+													<div class="col-sm-9">
+														<div class="input-group">
+															<span class="input-group-addon"><i class="ti-user"></i></span>
+															<input id="wechatid" type="text" class="form-control">
+														</div>
+													</div>
+												</div>
+                                            </div>
+
+                                            <div class="form-group has-success">
+												<div class="row">
+													<label class="col-sm-3 control-label">抓取频率(小时)</label>
+													<div class="col-sm-3">
+														<div class="input-group">
+															<span class="input-group-addon"><i class="ti-alarm-clock"></i></span>
+															<input id="frequency" type="text" class="form-control">
+														</div>
+													</div>
+                                                    <div class="col-sm-5">
+                                                        <p>tips:  该值为公众号文章抓取间隔时间,如: 24小时抓取一次</p>
+                                                    </div>
+												</div>
+											</div>
+
+                                             <div class="form-group has-success">
+												<div class="row">
+													<label class="col-sm-3 control-label">验证码</label>
+                                                    <img src="/static/images/wx/code.png" alt="">
+													<div class="col-sm-3">
+														<div class="input-group">
+
+															<input id="frequency" type="text" class="form-control">
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-10 col-sm-10">
+                                                    <button type="button" id="add-gzh" class="btn btn-default">添加</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                <!-- /# row -->
+                <div class="row">
+                    <!-- /# column -->
+                    <div class="col-lg-12">
+                        <div class="card alert">
+                            <div class="card-header">
+                                <h4>公众号列表 </h4>
+                                <div class="card-header-right-icon">
+                                    <ul>
+                                        <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                                        <li class="card-option drop-menu">
+                                            <i class="ti-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="link"></i>
+                                            <ul class="card-option-dropdown dropdown-menu">
+                                                <li><a href="#"><i class="ti-loop"></i> Update data</a></li>
+                                                <li><a href="#"><i class="ti-menu-alt"></i> Detail log</a></li>
+                                                <li><a href="#"><i class="ti-pulse"></i> Statistics</a></li>
+                                                <li><a href="#"><i class="ti-power-off"></i> Clear ist</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="card-collapse"><i class="fa fa-window-restore"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body card-content">
+                                <table class="table table-responsive table-hover ">
+                                    <thead>
+                                    <tr>
+                                        <th>头像</th>
+                                        <th>名称</th>
+                                        <th>公账号&ID</th>
+                                        <th>状态</th>
+                                        <th>抓取频率</th>
+                                        <th>下次爬取时间</th>
+                                        <th>最近1天文章</th>
+                                        <th>最近1周</th>
+                                        <th>文章总数</th>
+                                        <th>创建人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for w in wechat %}
+
+
+                                    <tr>
+                                        <td><img src="{{ w.avatar }}" /></td>
+                                        <td>{{ w.name }}</td>
+                                        <td>{{ w.wechatid }}</td>
+                                        <td>{{ w.status }}</td>
+                                        <td>{{ w.frequency }}</td>
+                                        <td>{{ w.next_crawl_time }}</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>{{ w.user.username}}</td>
+{#                                        <td>{{ w.intro}}</td>#}
+                                        <td>
+                                            <a href="#">抓取</a>|
+                                            <a href="#">禁用</a>|
+                                            <a href="#">删除</a>
+
+                                        </td>
+{#                                        <td><span class="badge badge-primary">Sale</span></td>#}
+{#                                        <td>January 22</td>#}
+{#                                        <td class="color-primary">$21.56</td>#}
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+                <!-- /# row -->     </div>
+        </div>
+        <!-- /# container-fluid -->
+    </div>
+    <!-- /# main -->
+</div>
+<!-- /# content wrap -->
+<script src="/static/js/lib/jquery.min.js"></script>
+<!-- jquery vendor -->
+<script src="/static/js/lib/jquery.nanoscroller.min.js"></script>
+<!-- nano scroller -->
+<script src="/static/js/lib/sidebar.js"></script>
+<!-- sidebar -->
+<script src="/static/js/lib/bootstrap.min.js"></script>
+<!-- bootstrap -->
+{#<script src="/static/js/lib/mmc-common.js"></script>#}
+{#<script src="/static/js/lib/mmc-chat.js"></script>#}
+<!--  Chart js -->
+{#<script src="/static/js/lib/chart-js/Chart.bundle.js"></script>#}
+{#<script src="/static/js/lib/chart-js/chartjs-init.js"></script>#}
+<!-- // Chart js -->
+<!--  Datamap -->
+{#<script src="/static/js/lib/datamap/d3.min.js"></script>#}
+{#<script src="/static/js/lib/datamap/topojson.js"></script>#}
+{#<script src="/static/js/lib/datamap/datamaps.world.min.js"></script>#}
+{#<script src="/static/js/lib/datamap/datamap-init.js"></script>#}
+{#<script src="/static/lib/lobipanel/js/lobipanel.js"></script>#}
+<!-- // Datamap -->
+{#<script src="/static/js/scripts.js"></script>#}
+{#<script src="/static/js/mjs.js"></script>#}
+<!-- scripit init-->
+<script>
+
+    $("#add-gzh").click(function(){
+        var wechatid = document.getElementById('wechatid').value;
+        var frequency = document.getElementById('frequency').value;
+        var reg=/^[0-9]+$/;
+        if(!reg.test(frequency)){
+            alert('抓取频率必须为正整数');
+            return false;
+        }
+        var ajax_url = "/api/manager/create/gzh";
+        var post_data = {
+            "wechatid" : wechatid,
+            "frequency": frequency
+        };
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+        });
+        $.ajax({
+            url: ajax_url,
+            data: {'data': JSON.stringify(post_data)},
+            type: 'POST',
+            dataType: 'json',
+            headers: {'Content-Type': "application/x-www-form-urlencoded"},
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (msg) {
+                console.log(msg);
+            }
+        });
+
+{#        $.getJSON("",function(ret){#}
+
+{#        })#}
+    });
+
+    $(document).ready(function() {
+
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户登录</title>
+
+
+    <!-- Styles -->
+    <link href="/static/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/static/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/static/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/lib/nixon.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-primary">
+
+<div class="Nixon-login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="login-content">
+                    <div class="login-logo">
+                        <a href="#"><span>文章采集系统</span></a>
+                    </div>
+                    <div class="login-form">
+                        <h4>用户登录</h4>
+                        {{ form.errors }}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+{##}
+{#                            <div class="form-group">#}
+{#                                <label>用户名</label>#}
+{#                                {{ form.username }}#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <label>密码</label>#}
+{#                                {{ form.password }}#}
+{#                            </div>#}
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                                <label class="pull-right">
+                                    <a href="/page-reset-password.html">Forgotten Password?</a>
+                                </label>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+
+                            <div class="register-link m-t-15 text-center">
+                                <p>Don't have account ? <a href="/user/register/"> Sign Up Here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
