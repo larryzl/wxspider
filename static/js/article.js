@@ -46,7 +46,7 @@ function updateLabel(data){
     }).then(function(value) {
         console.log(value);
         if(value.value){
-            $.ajaxSetup({data: {csrfmiddlewaretoken: csrf}});
+            $.ajaxSetup({data: {csrfmiddlewaretoken: data.csrf}});
             $.ajax({
                 type: 'post',
                 url: url,
