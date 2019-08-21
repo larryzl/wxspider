@@ -36,6 +36,11 @@
             pullArticle(data);
         });
 
+        $("#update-kind").click(function(){
+            var data = {csrf:'{{ csrf_token }}'};
+            updateLabel(data);
+        });
+
         $(document).ready(function() {
             $("#pc_0").attr("aria-expanded",true).addClass("active").parent().addClass('active');
             showArticle("pc_0",'{{ csrf_token }}');

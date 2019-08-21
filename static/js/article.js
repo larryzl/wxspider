@@ -26,6 +26,61 @@ function showArticle(id,csrf){
     })
 }
 
+function updateLabel(data){
+    var
+        $this = $(this),
+        url = "/api/manager/update/article/kind"
+        ;
+    swal({
+        title: '确定更新当前标签吗？',
+        text: '更新期间不要关闭我哦！',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function(value) {
+        console.log(value);
+        if(value.value){
+            $.ajaxSetup({data: {csrfmiddlewaretoken: csrf}});
+            $.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                beforeSend: function () {
+                    $this.layerIndex = layer.load(0, {shade: [0.5, '#fff']});
+                },
+                success: function (data) {
+                    if(data.code == 200){
+                        swal({
+                            title:'更新完成',
+                            type: 'success'
+                            //html: '更新完成'
+                        }).then(function(){
+                            window.location.reload()
+                        });
+                    }else{
+                        swal(
+                            '更新失败',
+                            '错误原因:'+data.msg,
+                            'error'
+                        );
+                    }
+                },
+                complete: function () {
+                    layer.close($this.layerIndex);
+                }
+            })
+        }else {
+            swal('已取消','','error');
+
+        }
+    })
+}
 
 function pullArticle(data){
     var
