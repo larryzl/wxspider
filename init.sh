@@ -9,5 +9,5 @@ find . -path "*/__pycache__/*" -delete
 rm -f db.sqlite3
 
 # 生成数据库文件
-python manage.py makemigrations
-python manage.py migrate
+#python manage.py makemigrations
+#python manage.py migrate

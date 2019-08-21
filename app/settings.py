@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from app.logger import LOGGING,BASE_DIR,BASE_LOG_DIR
+from app import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -72,8 +73,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
 	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': config.db_name,
+		'USER': config.db_user,
+		'PASSWORD': config.db_passwd,
+		'HOST': config.db_host,
+		'PORT': config.db_port
+
 	}
 }
 
