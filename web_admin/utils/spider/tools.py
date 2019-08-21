@@ -79,3 +79,10 @@ def may_int(i):
 		return int(i)
 	except Exception:
 		return i
+
+
+DEBUG = True
+
+
+def d_print(data):
+	if DEBUG: print(data)

@@ -19,7 +19,7 @@ from django.urls import re_path,include,path
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^user/',include('web_admin.urls.account_urls')),
-    re_path('^manager/',include('web_admin.urls.manager_urls')),
+    re_path('^wechat/',include('web_admin.urls.manager_urls')),
     re_path('^api/manager/',include('web_admin.urls.api_urls'))
     # re_path(r'^$',)
     # views urls

@@ -73,7 +73,7 @@ h6.h1,
           transform: rotate(180deg); }
 
 .main-content {
-  padding: 15px; }
+  padding: 0px; }
 
 .alert h4 {
   color: #878787; }
@@ -214,7 +214,9 @@ h6.h1,
 card
 -------------------------------------------------*/
 .card-body {
-  background: #fff; }
+  background: #fff;
+    margin-top: 15px;
+}
 
 .card {
   background: #fff;
@@ -1911,7 +1913,9 @@ commpose email
     background: none repeat scroll 0 0 #fff;
     border-radius: 0 4px 4px 0;
     width: 75%; }
-
+.news-box {
+    background: #fff;
+}
 .user-head .inbox-avatar {
   float: left;
   width: 65px; }
@@ -1932,6 +1936,7 @@ commpose email
   .user-head .user-name span a {
     color: #878787;
     font-size: 12px; }
+
 
 a.mail-dropdown {
   background: none repeat scroll 0 0 #80d3d9;

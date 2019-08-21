@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>羽硕采集</title>
+    <!-- Styles -->
+    <link href="/static/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/static/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/static/css/lib/mmc-chat.css" rel="stylesheet" />
+    <link href="/static/css/lib/sidebar.css" rel="stylesheet">
+    <link href="/static/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/lib/nixon.css" rel="stylesheet">
+    <link href="/static/css/lib/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/lib/sweetalert/sweetalert2.min.css">
+    {#    <link href="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">#}
+    <link rel="stylesheet" href="/static/css/layui.css">
+
+</head>
+
+<body>
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            <ul>
+                <li id="index"><a href="/wechat/index.html"><i class="ti-home"></i> 公众号</a></li>
+                <li id="hotword"><a href="/wechat/hotword.html"><i class="ti-user"></i> 搜索热词</a></li>
+                <li id="article"><a href="/wechat/article.html"><i class="ti-layout-grid2-alt"></i> 最新文章</a></li>
+                <li><a><i class="ti-close"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /# sidebar -->
+<div class="header">
+    <div class="pull-left">
+        <div class="hamburger sidebar-toggle">
+            <span class="ti-menu"></span>
+        </div>
+    </div>
+    <div class="pull-right p-r-15">
+        <ul>
+            <li class="header-icon dib">
+                <img class="avatar-img" src="/static/images/avatar/1.jpg" alt="" /> <span class="user-avatar">{{ nickname }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 p-0">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>{{ title }}</h1>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon dib"><i class="ti-money color-success border-success"></i></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">已下载文章数</div>
+                                    <div class="stat-digit">{{ article_all }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">已添加公众号</div>
+                                    <div class="stat-digit">{{ wechat_num }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">今日下载量</div>
+                                    <div class="stat-digit">{% if article_today   %}{{ article_today }}{% else %}0{% endif %}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">本周下载量</div>
+                                    <div class="stat-digit">{% if article_week   %}{{ article_week }}{% else %}0{% endif %}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+{% block js %}
+
+{% endblock %}
+
+<script>
+
+    activeNav();
+
+    function activeNav() {
+        var url_array = document.location.pathname.split("/");
+        var app = url_array[1];
+        var resource = url_array[2].replace('.html','');
+        $('#' + resource).addClass('active');
+        //console.log(resource);
+    }
+
+</script>
+
+</body>
+
+</html>

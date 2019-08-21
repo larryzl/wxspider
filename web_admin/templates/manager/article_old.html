@@ -1,0 +1,280 @@
+{% extends 'manager/manager_base.html' %}
+{% block content %}
+{#            <div class="col-lg-12">#}
+{#                <div class="card alert">#}
+{#                    <div class="card-header">#}
+{#                        <h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">公众号列表 </font></font></h4>#}
+{#                        <div class="card-header-right-icon">#}
+{#                            <ul>#}
+{#                                <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>#}
+{#                                <li class="card-option drop-menu"><i class="ti-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="link"></i>#}
+{#                                    <ul class="card-option-dropdown dropdown-menu">#}
+{#                                        <li><a href="#"><i class="ti-loop"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 更新数据</font></font></a></li>#}
+{#                                        <li><a href="#"><i class="ti-menu-alt"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 详细日志</font></font></a></li>#}
+{#                                        <li><a href="#"><i class="ti-pulse"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 统计</font></font></a></li>#}
+{#                                        <li><a href="#"><i class="ti-power-off"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 清楚的是</font></font></a></li>#}
+{#                                    </ul>#}
+{#                                </li>#}
+{##}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="card-body">#}
+{##}
+{#                        <table id="datatable" class="display">#}
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th class="text-center"><input type="checkbox" class="ipt_check_all" id="check_all"></th>#}
+{#                                <th>标题</th>#}
+{#                                <th>公众号</th>#}
+{#                                <th>发布时间</th>#}
+{#                                <th>抓取时间</th>#}
+{#                                <th>原始地址</th>#}
+{#                                <th>封面图</th>#}
+{#                                <th>文章摘要</th>#}
+{#                                <th>阅读数</th>#}
+{#                                <th>点赞数</th>#}
+{#                                <th>评论数</th>#}
+{#                                <th>原创</th>#}
+{#                                <th>群发中图文顺序</th>#}
+{#                                <th>操作</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                        </table>#}
+{#                        <div class="row">#}
+{#                            <div class="col-sm-6">#}
+{#                                <input type="button" class="btn btn-sm btn-primary" id="add-gzh" value="添加文章">#}
+{#                                <input type="button" class="btn btn-danger btn-sm btn_asset_delete_all"  value="删除">#}
+{#                                <input type="button" class="btn btn-warning btn-sm btn_asset_deactive_all" value="停用">#}
+{#                                <input type="button" class="btn btn-info btn-sm" name="update_button" id="asset_update" value="更新">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+    <ul class="list-unstyled">
+  <li class="media">
+    <img class="mr-3" src="..." alt="Generic placeholder image">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">List-based media object</h5>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+    </div>
+  </li>
+  <li class="media my-4">
+    <img class="mr-3" src="..." alt="Generic placeholder image">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">List-based media object</h5>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+    </div>
+  </li>
+  <li class="media">
+    <img class="mr-3" src="..." alt="Generic placeholder image">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">List-based media object</h5>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+    </div>
+  </li>
+</ul>
+
+<script src="/static/js/lib/jquery.min.js"></script>
+<script src="/static/js/lib/jquery.nanoscroller.min.js"></script>
+<script src="/static/js/lib/sidebar.js"></script>
+<script src="/static/js/lib/bootstrap.min.js"></script>
+<script src="/static/js/lib/jquery.dataTables.min.js"></script>
+<script src="/static/js/layui.all.js"></script>
+<script src="/static/js/mjs.js"></script>
+
+{% endblock %}
+{% block js %}
+
+<script>
+    layui.use(['form','layer','laypage'], function() { //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        var form = layui.form;
+
+        $("#add-gzh").click(function () {
+            let idx = layer.open({
+                type: 2,
+                title: '添加文章',
+                shade: 0.8,
+                area: ['800px', '400px'],
+                btn:['关闭'],
+                content: '/manager/test.html',
+                btn1: function () {
+                    window.location.reload();
+                }
+            })
+        });
+
+        $("#add-kind").click(function(){
+            let idx = layer.open({
+                type:1,
+                title: '添加分类',
+                area: '300px',
+                btn:['保存','取消'],
+                btnAlign: 'c',
+                shade: 0.8,
+                content: $("#add-kind-form").html(),
+                yes: function(index,layero){
+                    var data = document.getElementsByName("kindName")[1].value;
+                    $.ajax({
+                        url: '/api/manager/create/kind/',
+                        type:'post',
+                        data:{
+                            'data':data
+                        },
+                        dataType: 'json',
+                        success:function(data){
+                            if(data.code == 10000){
+                                layer.msg(data.msg,{
+                                    icon:1,
+                                    time:1200
+                                });
+                                window.location.reload();
+                            }else if(data.code == 10040){
+                                layer.msg(data.msg,{
+                                    icon:2,
+                                    time:1200
+                                }, function () {
+                                    console.log(data);
+                                    layer.close(idx)
+                                })
+                            }
+                        }
+                    })
+
+                },
+                btn1: function (index,layero) {
+                    window.location.reload();
+                },
+                btn2: function () {
+                    layer.close(idx)
+                }
+            }) ;
+        });
+
+    });
+
+    function initData(url,laypage){
+        console.log(url);
+        console.log(laypage);
+    }
+
+
+    function initTable(){
+        // 表格选项
+        var options = {
+            ele : $("#datatable"),
+            pageLength : 10,
+            csrf: '{{ csrf_token }}',
+            columnDefs: [
+                {
+                    targets: 1,
+                    createdCell: function(td,cellData,rowData){
+                        {#                        {% url 'server_detail' 'DEFAULT_PK' as the_url  %}#}
+                        var avatar = '<p>' + cellData + '</p>';
+                        $(td).html(avatar);
+                    }
+                },
+                {
+                    targets: 2,
+                    createdCell: function(td,cellData){
+                        var project_btn = '';
+                        project_btn += '<span class="label label-success">' + cellData +'</span>'
+                        $(td).html(project_btn);
+                    }
+                },
+                {
+                    targets: 3,
+                    createdCell: function(td,cellData){
+                        $(td).html('<span class="label label-info">' + cellData +'</span>');
+                    }
+                },
+                {
+                    targets: 4,
+                    createdCell: function(td,cellData){
+                        var label_btn = '';
+
+                        label_btn += '<span class="label label-info">' + cellData + '</span> ';
+                        $(td).html(label_btn);
+                    }
+                },
+                {
+                    targets: 6,
+                    createdCell: function(td,cellData,rowData){
+                        var is_active_btn = '';
+                        is_active_btn += '<a class="btn btn-primary btn-xs asset_active" type="button" >'+ cellData + '</a>';
+                        $(td).html(is_active_btn);
+                    }
+                },
+                {
+                    targets: 7,
+                    createdCell: function (td, cellData) {
+                        $(td).html('<p>'+cellData+'</p>');
+
+                    }
+                },
+                {
+                    targets: -3,
+                    createdCell: function (td, cellData) {
+                        $(td).html('<a class="btn btn-xs btn-success" src="'+cellData+'">点击查看临时连接</a>');
+
+                    }
+                },
+
+                {
+                    targets : -1,
+                    orderable: false,
+                    createdCell: function(td,cellData,rowData){
+                        var update_btn = '<a class="btn btn-xs btn-info btn_asset_update" data-uid="'+ rowData.id + '">更新</a> ';
+                        var del_btn = '<a class="btn btn-xs btn-danger m-l-xs btn_asset_delete" data-uid="'+ rowData.id + '">删除</a>';
+                        $(td).html(update_btn + del_btn);
+                    }
+                }
+            ],
+            ajax_url: "/api/manager/get/article",
+            columns: [
+                { data: 'id',name:'id' },
+                { data: "title" ,name:'title',orderable: true},
+                { data: "wechat_name" ,name:'wechat_name',orderable: true},
+                { data: "publish_time" ,name:'publish_time',orderable: true},
+{#                { data: "wechatid" ,name:'wechatid',orderable: true},#}
+                { data: "create_time" ,name:'create_time'},
+                { data: "source_url" ,name:'source_url'},
+                { data: "avatar",name:'avatar',searchable:false},
+                { data: "abstract" ,name:'abstract',orderable: false,searchable:false},
+                { data:"read_num"},
+                { data:"comment_count"},
+                { data:"like_num"},
+                { data:"copyright_stat"},
+                { data:"mas_index"}
+            ]
+        };
+        var server_table = dt.initServerDataTable(options);
+        return server_table
+    }
+
+    function filterKind(kName){
+        console.log(kName);
+        $("#datatable").DataTable().column(5).search(
+                kName
+        ).draw();
+    }
+
+    $(document).ready(function() {
+                initTable();
+                $('[data-toggle="popover"]').popover();
+            })
+            .on('click','.btn-kind',function(){
+                var $this = $(this);
+                var kName = $this.data('uid');
+                filterKind(kName);
+            })
+            .on('click','#gzh-add', function () {
+                var $this = $(this);
+                var $data_table = $("#datatable").DataTable();
+            })
+</script>
+
+
+{% endblock %}

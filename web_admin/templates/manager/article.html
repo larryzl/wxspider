@@ -1,0 +1,52 @@
+{% extends 'manager/manager_base.html' %}
+{% block content %}
+    <div class="btn-group btn-group-s" role="group" data-toggle="buttons">
+        <button data-method="notice" id="update-kind" class="btn btn-info btn-sm">更新分类</button>
+        <button data-method="notice" id="pull-hot" class="btn btn-success btn-sm">抓取分类文章</button>
+        <button data-method="notice" id="pull-all" class="btn btn-warning btn-sm">抓取全部分类</button>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {% for kind in article_kind %}
+            <li class="nav-item">
+                <a class="nav-link" id="{{ kind.label }}" data-toggle="tab" href="#{{ kind.label }}" role="tab" aria-controls="home" aria-selected="true">{{ kind.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="card-body" id="card-body"></div>
+    <script src="/static/js/lib/jquery.min.js"></script>
+    <script src="/static/js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="/static/js/lib/sidebar.js"></script>
+    <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+    <script src="/static/js/lib/bootstrap.min.js"></script>
+    <script src="/static/js/lib/jquery.dataTables.min.js"></script>
+    <script src="/static/js/layui.all.js"></script>
+    <script src="/static/js/mjs.js"></script>
+    <script src="/static/js/article.js"></script>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $("#pull-hot").click(function(){
+            var data = {csrf:'{{ csrf_token }}',is_all:false};
+            pullArticle(data);
+        });
+
+        $("#pull-all").click(function(){
+            var data = {csrf:'{{ csrf_token }}',is_all:true};
+            pullArticle(data);
+        });
+
+        $(document).ready(function() {
+            $("#pc_0").attr("aria-expanded",true).addClass("active").parent().addClass('active');
+            showArticle("pc_0",'{{ csrf_token }}');
+        });
+
+        $(".nav-link").click(function(){
+            var $this = $(this);
+            var id = $this.attr('id');
+            showArticle(id,'{{ csrf_token }}');
+        });
+
+
+    </script>
+{% endblock %}

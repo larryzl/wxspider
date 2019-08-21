@@ -11,10 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from app.logger import LOGGING,BASE_DIR,BASE_LOG_DIR
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -97,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
 	},
 ]
 
-
 AUTH_USER_MODEL = 'web_admin.CustomUser'
 
 # Internationalization
@@ -110,7 +107,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -120,8 +117,8 @@ STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, 'static')
 ]
 # 微信相关图片目录
-WXSTATIC_ROOT = os.path.join(BASE_DIR, 'static', 'images','wx').replace('\\', '/') + '/'
-
+WXSTATIC_ROOT = os.path.join(BASE_DIR, 'static', 'images', 'wechat').replace('\\', '/') + '/'
+WXSTATIC_DIR = "/static/images/wechat/"
 
 LOGIN_URL = "/user/login/"
-
+# LOGGIN_CONF = os.path.join(BASE_DIR, 'logging.conf')

@@ -18,12 +18,16 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from web_admin.forms import UserLoginForm, UserRegisterForm
 
+import logging
+import logging.config
+logger = logging.getLogger(__name__)
+collect_logger = logging.getLogger("collect")
+
 
 class UserLoginView(LoginView):
 	form_class = UserLoginForm
 	template_name = 'users/login.html'
 	success_url = '/manager/index.html'
-
 
 	def form_valid(self, form):
 		auth_login(self.request, form.get_user())
@@ -36,10 +40,9 @@ class UserLoginView(LoginView):
 
 		form = self.get_form()
 		if form.is_valid():
-			request.session['_uid']='222'
+			request.session['_uid'] = '222'
 			return self.form_valid(form)
 		else:
-			print(form.errors)
 			return self.form_invalid(form)
 
 

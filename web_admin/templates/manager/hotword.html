@@ -1,0 +1,75 @@
+{% extends 'manager/manager_base.html' %}
+{% block content %}
+
+
+    <div class="col-lg-12">
+        <div class="card alert">
+            <div class="card-header">
+                <h4><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">热词列表 </font></font></h4>
+                <div class="card-header-right-icon">
+                    <ul>
+                        <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                        <li class="card-option drop-menu"><i class="ti-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="link"></i>
+                            <ul class="card-option-dropdown dropdown-menu">
+                                <li><a href="#"><i class="ti-loop"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 更新数据</font></font></a></li>
+                                <li><a href="#"><i class="ti-menu-alt"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 详细日志</font></font></a></li>
+                                <li><a href="#"><i class="ti-pulse"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 统计</font></font></a></li>
+                                <li><a href="#"><i class="ti-power-off"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 清楚的是</font></font></a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="display">
+                    <thead>
+                    <tr>
+                        <th class="text-center"><input type="checkbox" class="ipt_check_all" id="check_all"></th>
+                        <th>热词</th>
+                        <th>搜狗链接</th>
+                        <th>相关文章数</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="btn-group btn-group-s" role="group" data-toggle="buttons">
+                            <button data-method="notice" id="update-hot" class="btn btn-info btn-sm">更新热词</button>
+                            <button data-method="notice" id="" class="btn btn-success btn-sm">热词搜索</button>
+                            <button data-method="notice" id="" class="btn btn-danger btn-sm btn_update_cookie">更新cookie</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/static/js/lib/jquery.min.js"></script>
+    <script src="/static/js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="/static/js/lib/sidebar.js"></script>
+    <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+    <script src="/static/js/lib/bootstrap.min.js"></script>
+    <script src="/static/js/lib/jquery.dataTables.min.js"></script>
+    <script src="/static/js/layui.all.js"></script>
+    <script src="/static/js/mjs.js"></script>
+    <script src="/static/js/hotword.js"></script>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function(){$("#update-hot").click(function(){pullHotword('{{ csrf_token }}');});initTable('{{ csrf_token }}')})
+                .on('click','.btn_article_pull',function(){var data = {url:$(this).data('url'), keyword:$(this).data('word'),csrf:'{{ csrf_token }}'};pullKeywordArticle(data);})
+                .on('click','.btn_update_cookie',function(){
+                    var
+                            data = {
+                                csrf:'{{ csrf_token }}'
+                            }
+                    ;
+                    updateCookie(data)
+                })
+    </script>
+{% endblock %}

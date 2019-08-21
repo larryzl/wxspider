@@ -10,3 +10,4 @@
 
 """
 from web_admin.forms.account import *
+from web_admin.forms.manager import *

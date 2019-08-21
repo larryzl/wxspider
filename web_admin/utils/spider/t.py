@@ -10,27 +10,24 @@
 
 """
 
-from web_admin.utils.spider.api import SogouSpider
 
-import requests
+class sogouSpider:
+	def __init__(self):
+		self.lis = []
+
+	def s1(self):
+		lis2 = []
+		self.s2(lis2)
+		print(self.lis)
+		self.s2(self.lis)
+		print(self.lis)
+		print(lis2)
+
+	def s2(self, lis):
+		assert isinstance(lis, list)
+		lis.extend([x for x in range(10)])
 
 
-def create_random_password(max_pwd=9):
-	import random
-	from string import ascii_letters,digits
-	new_pwd = ''
-	for i in range(max_pwd):
-		new_pwd += random.choice(ascii_letters) + random.choice(digits)
-	return new_pwd
-"""
-2A37F4DA6E2F940A000000005D1DAB31
-2A37F4DA6E2F940A000000005D1DAB31
-"""
 if __name__ == '__main__':
-	ss = SogouSpider()
-	keyword = "北京那点事"
-	print(ss.get_gzh_info(keyword))
-	#
-	# r = requests.get('https://weixin.sogou.com')
-	# print(r.cookies.get('SUID'))
-	#
+	m = sogouSpider()
+	m.s1()

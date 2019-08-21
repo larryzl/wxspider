@@ -14,26 +14,34 @@ from urllib.parse import urlencode
 
 
 class WechatSogouCombinedUrl:
-	_search_type = (1,2)
 	_base_url = 'https://weixin.sogou.com/weixin?'
 
 	@classmethod
-	def gzh_search_url(cls,keyword,page=1):
+	def search_url(cls, keyword, type=1):
 		"""拼接搜索公众号URL
-		:param keyword:
-		:param page:
+		:param type: 1 搜索公众号， 2 搜索文章
+		:param keyword: 关键词
+		:param page: 搜索页数
 		:return:  str
 		"""
-		assert isinstance(page,int) and page > 0
+		for p in range(1, 10):
+			if type == 1:
+				parameter = {'type': 1, 'page': p, 'ie': 'utf8', 'query': keyword}
+			else:
+				parameter = {'type': 2, 's_from': 'input', 'query': keyword, 'ie': 'utf8', 'page': p}
 
-		parameter = {
-			'type': cls._search_type[0],
-			'page': page,
-			'ie': 'utf8',
-			'query': keyword
-		}
-		return cls._base_url+urlencode(parameter)
+			if p == 1:
+				parameter.pop('page')
+				referer = "/".join(cls._base_url.split('/')[0:-1])
+			else:
+				r_p = parameter.copy()
+				r_p['page'] = p - 1
+				referer = cls._base_url + urlencode(r_p)
 
-	@classmethod
-	def article_url(cls,keyword,page=1):
-		pass
+			yield (cls._base_url + urlencode(parameter), referer)
+
+
+if __name__ == '__main__':
+	url_list = WechatSogouCombinedUrl.search_url(keyword='keyword', type=2)
+	for i in url_list:
+		print(i)

@@ -10,16 +10,16 @@
 
 """
 from django import forms
-from web_admin.models import Wechat
+from web_admin.models import Wechat, WechatArticleKind
 
 
 class WechatForm(forms.ModelForm):
 	class Meta:
 		model = Wechat
-		fields = ['avatar', 'qrcode', 'name', 'wechatid', 'intro', 'frequency']
+		fields = ['avatar', 'qrcode', 'name', 'wechatid', 'intro']
 
 
-class WechatConfigForm(forms.ModelForm):
+class KindForm(forms.ModelForm):
 	class Meta:
-		model = Wechat
-		fields = ['frequency']
+		model = WechatArticleKind
+		fields = ['name']
