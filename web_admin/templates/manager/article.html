@@ -17,6 +17,7 @@
     <script src="/static/js/lib/jquery.nanoscroller.min.js"></script>
     <script src="/static/js/lib/sidebar.js"></script>
     <script src="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.bootcss.com/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="/static/js/lib/bootstrap.min.js"></script>
     <script src="/static/js/lib/jquery.dataTables.min.js"></script>
     <script src="/static/js/layui.all.js"></script>
@@ -43,13 +44,16 @@
 
         $(document).ready(function() {
             $("#pc_0").attr("aria-expanded",true).addClass("active").parent().addClass('active');
-            showArticle("pc_0",'{{ csrf_token }}');
+            showArticle({id:"pc_0",csrf:'{{ csrf_token }}',lable_name:'热门'});
         });
 
         $(".nav-link").click(function(){
-            var $this = $(this);
-            var id = $this.attr('id');
-            showArticle(id,'{{ csrf_token }}');
+            var
+                    $this = $(this),
+                    id = $this.attr('id'),
+                    lable_name = $this.html(),
+                    data = {id:id,csrf:'{{ csrf_token }}',lable_name:lable_name};
+            showArticle(data);
         });
 
 

@@ -15,7 +15,6 @@ import hashlib
 import json
 import logging
 import logging.config
-import os
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -27,7 +26,6 @@ from web_admin.models import Wechat, CustomUser, Article, WechatArticleKind, Wor
 from web_admin.utils import error_code
 from web_admin.utils.mixins import LoginRequireMixin
 from web_admin.utils.spider.api import SogouSpider
-from app.settings import WXSTATIC_ROOT, WXSTATIC_DIR
 
 logger = logging.getLogger(__name__)
 logging.getLogger('django')
@@ -185,15 +183,18 @@ class ArticleList(LoginRequireMixin, JSONResponseMixin, View):
 	def post(self, request):
 		post_data = request.POST
 		context = {
-			'code': 500,
+			'code': error_code.DATA_ERROR,
 			'msg': 'Server Error'
 		}
 		try:
-			kind = post_data.get('kind', 'pc_0')
+			label_name = post_data.get('label_name', 'pc_0')
 		except:
 			return JsonResponse(self.get_data(context))
+		logger.debug('分类名称：{}'.format(label_name))
+		article_obj = Article.objects.filter(kind__label=label_name)
 
-		article_list = Article.objects.filter(kind__label=kind).order_by('-publish_time')[:20]
+		article_list = article_obj.order_by('-publish_time')[:20]
+		article_count = article_obj.count()
 		resp_article = []
 
 		for each_article in article_list:
@@ -212,8 +213,9 @@ class ArticleList(LoginRequireMixin, JSONResponseMixin, View):
 				'gzh_id': gzh_id
 			})
 
-		context['code'] = 200
+		context['code'] = error_code.STATUS_OK
 		context['msg'] = resp_article
+		context['article_count'] = article_count
 		return JsonResponse(self.get_data(context))
 
 

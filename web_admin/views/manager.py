@@ -63,7 +63,7 @@ class ArticleView(LoginRequireMixin, TemplateView):
 		article_all = Article.objects.all().count()
 		article_today = Article.objects.filter(create_time__gte=datetime.datetime.now().date()).count()
 		article_week = Article.objects.filter(create_time__gte=get_weekday()).count()
-		article_kind = WechatArticleKind.objects.all()
+		article_kind = WechatArticleKind.objects.all().order_by('label')
 
 		context = self.get_context_data(article=article, article_all=article_all, wechat_num=wechat_num,
 		                                article_kind=article_kind,

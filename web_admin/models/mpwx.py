@@ -15,45 +15,6 @@ from uuid import uuid4
 
 from django.db import models
 
-from web_admin.models import CustomUser
-
-AKIND = (
-	('zonghe', '综合'),
-	('xinwen', '新闻'),
-	('gaoxiao', '搞笑'),
-	('health', '养生'),
-	('sifanghua', '私房话'),
-	('gossip', '八卦'),
-	('technology', '科技'),
-	('finance', '财经'),
-	('car', '汽车'),
-	('life', '生活'),
-	('fashion', '时尚'),
-	('mummy', '辣妈 / 育儿'),
-	('travel', '旅行'),
-	('job', '职场'),
-	('food', '美食'),
-	('history', '历史'),
-	('study', '学霸 / 教育'),
-	('constellation', '星座'),
-	('sport', '体育'),
-	('military', '军事'),
-	('game', '游戏'),
-	('pet', '萌宠'),
-)
-
-
-# class Kind(models.Model):
-# 	uuid = models.CharField(primary_key=True, auto_created=True, default=uuid4, editable=False, max_length=50)
-# 	name = models.CharField(verbose_name="分类名称", max_length=30, unique=True)
-#
-# 	class Meta:
-# 		verbose_name = "分类"
-# 		verbose_name_plural = verbose_name
-#
-# 	def __str__(self):
-# 		return self.name
-
 
 class Wechat(models.Model):
 	STATUS_DEFAULT = 0
@@ -76,6 +37,7 @@ class Wechat(models.Model):
 	profile_url = models.CharField(max_length=500, blank=True, default='', verbose_name='公众号地址')
 	kind = models.ForeignKey('WechatArticleKind', on_delete=models.CASCADE)
 	status = models.IntegerField(default=STATUS_DEFAULT, choices=STATUS_CHOICES, verbose_name="状态")
+
 	# user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 	def last_day_topics_count(self):
@@ -116,9 +78,10 @@ class Article(models.Model):
 	create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 	update_time = models.DateTimeField(auto_now=True, verbose_name='更新时间')
 	available = models.CharField(db_index=True, max_length=100, default='', verbose_name='是否可用')
-	twpid = models.CharField(max_length=50, default='', verbose_name='文章唯一值',unique=True)
-	kind = models.ForeignKey('WechatArticleKind', default='',null=True,blank=True,verbose_name='分类', on_delete=models.CASCADE)
-	hotword = models.ForeignKey('Word',default='',null=True,blank=True,verbose_name='热词',on_delete=models.CASCADE)
+	twpid = models.CharField(max_length=50, default='', verbose_name='文章唯一值', unique=True)
+	kind = models.ForeignKey('WechatArticleKind', default='', null=True, blank=True, verbose_name='分类',
+	                         on_delete=models.CASCADE)
+	hotword = models.ForeignKey('Word', default='', null=True, blank=True, verbose_name='热词', on_delete=models.CASCADE)
 
 	def __unicode__(self):
 		return self.title
