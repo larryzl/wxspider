@@ -27,7 +27,7 @@ collect_logger = logging.getLogger("collect")
 class UserLoginView(LoginView):
 	form_class = UserLoginForm
 	template_name = 'users/login.html'
-	success_url = '/manager/index.html'
+	success_url = '/wechat/index.html'
 
 	def form_valid(self, form):
 		auth_login(self.request, form.get_user())

@@ -192,7 +192,7 @@ function showToastr(data) {
         "tapToDismiss": false
     };
     if(data.type==0){
-        toastr.success('获取 ' + data.lable_name + ' 文章成功，共 ' + data.count + ' 篇文章', '查看成功', toastrOption);
+        toastr.success('获取 ' + data.lable_name + ' 文章成功，共 ' + data.count + ' 篇文章', data.lable_name, toastrOption);
     }else if(data.type==1){
         toastr.error('分类'+data.lable_name+ '文章数量为0', '查看失败', toastrOption);
     }

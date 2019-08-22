@@ -41,12 +41,12 @@ class IndexView(LoginRequireMixin, TemplateView):
 		title = "公众号"
 		wechat = Wechat.objects.all()
 		wechat_num = Wechat.objects.all().count()
-		kind_all = WechatArticleKind.objects.all()
+		article_kind = WechatArticleKind.objects.all().order_by('label')
 		article_all = Article.objects.all().count()
 		article_today = Article.objects.filter(create_time__gte=datetime.datetime.now().date()).count()
 		article_week = Article.objects.filter(create_time__gte=get_weekday()).count()
 		nickname = request.user.nickname
-		context = self.get_context_data(nickname=nickname, wechat=wechat, kind=kind_all,wechat_num=wechat_num,
+		context = self.get_context_data(nickname=nickname, wechat=wechat, kind=article_kind,wechat_num=wechat_num,
 		                                article_all=article_all, title=title,
 		                                article_today=article_today, article_week=article_week
 		                                , **kwargs)

@@ -272,7 +272,7 @@ class GzhList(LoginRequireMixin, JSONResponseMixin, View):
 				'last_week': gzh.last_week_topics_count(),
 				'total': total,
 				'profile_url': gzh.profile_url,
-				'intro': gzh.intro
+				# 'intro': gzh.intro
 			}
 
 			ajax_response_data.append(row)

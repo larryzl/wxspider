@@ -44,17 +44,17 @@
                                 <th>昨天文章数</th>
                                 <th>最近1周</th>
                                 <th>文章总数</th>
-                                <th>临时连接</th>
-                                <th>操作</th>
+{#                                <th>临时连接</th>#}
+{#                                <th>操作</th>#}
                             </tr>
                             </thead>
                         </table>
                         <div class="row">
                             <div class="col-sm-6">
                                 <input type="button" class="btn btn-sm btn-primary" id="add-gzh" value="添加公众号">
-                                <input type="button" class="btn btn-danger btn-sm btn_asset_delete_all"  value="删除">
-                                <input type="button" class="btn btn-warning btn-sm btn_asset_deactive_all" value="停用">
-                                <input type="button" class="btn btn-info btn-sm" name="update_button" id="asset_update" value="更新">
+{#                                <input type="button" class="btn btn-danger btn-sm btn_asset_delete_all"  value="删除">#}
+{#                                <input type="button" class="btn btn-warning btn-sm btn_asset_deactive_all" value="停用">#}
+{#                                <input type="button" class="btn btn-info btn-sm" name="update_button" id="asset_update" value="更新">#}
                             </div>
                         </div>
                     </div>
@@ -219,24 +219,24 @@
 
                     }
                 },
-                {
-                    targets: -2,
-                    createdCell: function (td, cellData) {
-                        $(td).html('<a class="btn btn-xs btn-success" href="'+cellData+'" target="view_window">点击查看</a>');
+{#                {#}
+{#                    targets: -1,#}
+{#                    createdCell: function (td, cellData) {#}
+{#                        $(td).html('<a class="btn btn-xs btn-success" href="'+cellData+'" target="view_window">点击查看</a>');#}
+{##}
+{#                    }#}
+{#                },#}
 
-                    }
-                },
-
-                {
-                    targets : -1,
-                    orderable: false,
-                    createdCell: function(td,cellData,rowData){
-                        var update_btn = '<button class="btn btn-xs btn-info btn_gzh_update" data-uid="'+ rowData.id + '">更新</button> ';
-                        var del_btn = '<button class="btn btn-xs btn-danger m-l-xs btn_gzh_delete" data-uid="'+ rowData.id + '">删除</button>';
-                        var pull_btn = '<button class="btn btn-xs btn-success m-l-xs btn_article_pull" data-uid="'+ rowData.id + '">抓取</button>';
-                        $(td).html('<div class="btn-group btn-group-toggle">'+update_btn + del_btn + pull_btn + '</div>');
-                    }
-                }
+{#                {#}
+{#                    targets : -1,#}
+{#                    orderable: false,#}
+{#                    createdCell: function(td,cellData,rowData){#}
+{#                        var update_btn = '<button class="btn btn-xs btn-info btn_gzh_update" data-uid="'+ rowData.id + '">更新</button> ';#}
+{#                        var del_btn = '<button class="btn btn-xs btn-danger m-l-xs btn_gzh_delete" data-uid="'+ rowData.id + '">删除</button>';#}
+{#                        var pull_btn = '<button class="btn btn-xs btn-success m-l-xs btn_article_pull" data-uid="'+ rowData.id + '">抓取</button>';#}
+{#                        $(td).html('<div class="btn-group btn-group-toggle">'+update_btn + del_btn + pull_btn + '</div>');#}
+{#                    }#}
+{#                }#}
             ],
             ajax_url: "/api/manager/get/gzh",
             columns: [
@@ -251,8 +251,8 @@
                 { data: "last_day"},
                 { data: "last_week"},
                 { data: "total"},
-                { data: "profile_url",orderable: false},
-                { data: 'intro',orderable:false,searchable:false}
+{#                { data: "profile_url",orderable: false},#}
+{#                { data: 'intro',orderable:false,searchable:false}#}
 
             ]
         };
