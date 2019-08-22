@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path,include,path
+from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^user/',include('web_admin.urls.account_urls')),
     re_path('^wechat/',include('web_admin.urls.manager_urls')),
-    re_path('^api/manager/',include('web_admin.urls.api_urls'))
-    # re_path(r'^$',)
+    re_path('^api/manager/',include('web_admin.urls.api_urls')),
     # views urls
     # re_path(r'^wxopen/',include('wxopen.urls.views_urls')),
-
-
     # api urls
     # re_path(r'^api/wxopen/',include('wxopen.urls.api_urls')),
 ]
+
+handler404 = 'views.page_not_found'
+handler500 = views.page_not_found
