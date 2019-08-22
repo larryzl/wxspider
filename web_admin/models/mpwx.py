@@ -138,6 +138,7 @@ class Proxy(models.Model):
 
 class Word(models.Model):
 	keyword = models.CharField(max_length=100, verbose_name='热词')
+	kind = models.CharField(max_length=100, verbose_name='分类')
 	frequency = models.IntegerField(default=100, verbose_name='爬取频率, 单位:分钟')
 	next_crawl_time = models.DateTimeField(auto_now_add=True, verbose_name='下次爬取时间')
 	crawl_url = models.CharField(max_length=500, default='', verbose_name='临时url')
@@ -149,3 +150,5 @@ class Word(models.Model):
 
 	class Meta:
 		verbose_name_plural = "词"
+
+

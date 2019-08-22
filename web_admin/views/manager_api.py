@@ -304,7 +304,13 @@ class HotwordList(LoginRequireMixin, JSONResponseMixin, View):
 		post_data = request.POST
 		# print(search_kind_name)
 
-		hotword_list = Word.objects.all().order_by('-create_time')
+		kind = post_data.get('type',0)
+		logger.debug(post_data)
+
+		if kind == 0:
+			hotword_list = Word.objects.filter(kind=int(kind)).order_by('-create_time')
+		else:
+			hotword_list = Word.objects.filter(kind=int(kind)).order_by('create_time')
 
 		result_length = hotword_list.count()
 		display_length = request.POST.get('length', 10)
@@ -423,7 +429,6 @@ class CrawlSogouHotArticle(LoginRequireMixin, JSONResponseMixin, View):
 			return JsonResponse(self.get_data(context))
 
 		kind_list = [k.label for k in WechatArticleKind.objects.all()] if kind == 'all' else [kind]
-
 		#
 		sg = SogouSpider()
 
@@ -479,18 +484,35 @@ class UpdateSogouHotword(LoginRequireMixin, JSONResponseMixin, View):
 		return JsonResponse(self.get_data({'code': 405, 'msg': 'Method GET not Allow'}))
 
 	def post(self, requests):
+		post_data = requests.POST
+
+		kind = post_data.get('type')
+
 		context = {'code': error_code.STATUS_ERROR, 'msg': ''}
 		sg = SogouSpider()
-		hotword_list = sg.update_sogou_hotword()
-		if len(hotword_list) > 0:
-			for item in hotword_list:
-				hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
-				Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
-				                              crawl_url=item['crawl_url'], hwid=hwid)
-			context.update({'code': error_code.STATUS_OK, 'msg': len(hotword_list)})
+		logger.debug('更新分类：{}'.format(kind))
+		if int(kind) == 0:
+			hotword_list = sg.update_sogou_hotword()
+			if len(hotword_list) > 0:
+				for item in hotword_list:
+					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
+					Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
+					                              crawl_url=item['crawl_url'], hwid=hwid, kind=0)
+				context.update({'code': error_code.STATUS_OK, 'msg': len(hotword_list)})
+			else:
+				context.update({'code': error_code.STATUS_ERROR, 'msg': '更新热词失败'})
+			return JsonResponse(self.get_data(context))
 		else:
-			context.update({'code': error_code.STATUS_ERROR, 'msg': '更新热词失败'})
-		return JsonResponse(self.get_data(context))
+			hotword_list = sg.update_weibo_hotword()
+			if len(hotword_list) > 0:
+				for item in hotword_list:
+					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
+					Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
+					                              crawl_url=item['crawl_url'], hwid=hwid, kind=1)
+				context.update({'code': error_code.STATUS_OK, 'msg': len(hotword_list)})
+			else:
+				context.update({'code': error_code.STATUS_ERROR, 'msg': '更新热词失败'})
+			return JsonResponse(self.get_data(context))
 
 
 class CrawlGzhHistoryArticle(LoginRequireMixin, JSONResponseMixin, View):

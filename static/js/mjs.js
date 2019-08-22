@@ -8,17 +8,6 @@ var dt = {};
 
 dt.initDataTable = function(options){
     var ele = options.ele || $('.dataTable');
-    //   var columnDefs = [
-    //    {
-    //        targets: 0,
-    //        orderable: false,
-    //        createdCell: function (td, cellData) {
-    //            $(td).html('<input type="checkbox" class="text-center ipt_check" id=99991937>'.replace('99991937', cellData));
-    //        }
-    //    },
-    //    {className: 'text-center', targets: '_all'}
-    //];
-    //columnDefs = options.columnDefs ? options.columnDefs.concat(columnDefs) : columnDefs;
     var table = ele.DataTable({
         columns: options.columns || [],
         //order: options.order || [],
@@ -60,7 +49,8 @@ dt.initServerDataTable = function (options) {
         selector: 'td:first-child'
     };
     $.ajaxSetup({
-        data: {csrfmiddlewaretoken: options.csrf }
+        data: {csrfmiddlewaretoken: options.csrf ,type: options.type}
+
     });
 
     var table = ele.DataTable({

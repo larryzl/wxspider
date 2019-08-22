@@ -237,7 +237,7 @@ class BeautiHtml:
 		:param html:
 		:return:
 		"""
-		logger.error("开始解析搜狗热词")
+		logger.debug("开始解析搜狗热词")
 		soup = BeautifulSoup(html, 'lxml')
 		hotword = []
 		for each in soup.find(attrs={"id": "topwords"}).find_all('li'):
@@ -289,9 +289,28 @@ class BeautiHtml:
 		logger.error("解析搜狗搜索页完成，共解析%s 条文章" % len(article_list))
 		return article_list
 
+	@classmethod
+	def weibo_tophot_parse(cls, html):
+		logger.debug("开始解析微博热词")
+		from urllib.parse import urlencode
+		soup = BeautifulSoup(html, 'lxml')
+		hotword = []
+		url = 'https://weixin.sogou.com/weixin??'
+		"https://weixin.sogou.com/weixin?type=1&ie=utf8&s_from=hotnews&query=%E6%B1%B6%E5%B7%9D+%E6%B3%A5%E7%9F%B3%E6%B5%81"
+
+		for each in soup.find_all(class_='td-02'):
+			parameter = {
+				'query':each.a.string,
+				'type':2,
+				'ie':'utf8',
+				's_from':'input',
+			}
+			hotword.append({'keyword':each.a.string,'crawl_url':url+urlencode(parameter)})
+		logger.debug("解析微博热词完成，共 {} 个".format(len(hotword)))
+		return hotword
 
 if __name__ == '__main__':
-	file = open('a.html', 'r', encoding='utf-8')
-	str1 = file.read()
-	file.close()
-	print(BeautiHtml.sogou_article_label_parse(str1))
+	# file = open('a.html', 'r', encoding='utf-8')
+	# str1 = file.read()
+	# file.close()
+	print(BeautiHtml.weibo_tophot_parse(''))

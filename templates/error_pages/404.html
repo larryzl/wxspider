@@ -70,11 +70,7 @@
 
     $(document).ready(function () {
         $(function () {
-            $.preload(er, {
-                init: function (loaded, total) {
-
-                },
-                loaded_all: function (loaded, total) {
+            $.preload(er, {init: function (loaded, total) {}, loaded_all: function (loaded, total) {
                     $('#indicator').fadeOut('slow', function () {
                         function swing() {
                             if ($('html').hasClass('ie')) {

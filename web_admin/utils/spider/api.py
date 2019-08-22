@@ -590,3 +590,20 @@ class SogouSpider:
 			return hotword_list
 		else:
 			return []
+
+	def update_weibo_hotword(self, url=None):
+		"""更新搜狗热词
+		:param url:
+		"""
+		headers = {'Host': 's.weibo.com', 'User-Agent': self.__ua,
+		           'Accept': 'text/html,application/xhtml+xml',
+		           'Accept-Encoding': 'gzip, deflate, br', 'Cache-Control': 'no-cache',}
+		if url is None: url = "https://s.weibo.com/top/summary?Refer=top_ho"
+		resp = self.__get(url, referer='https://weibo.com', session=requests.session(), headers=headers)
+		if resp.status_code == requests.codes.ok:
+			logger.error("获取微博热搜页内容成功")
+			hotword_list = BeautiHtml.weibo_tophot_parse(resp.text)
+
+			return hotword_list
+		else:
+			return []

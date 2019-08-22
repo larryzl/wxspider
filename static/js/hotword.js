@@ -2,6 +2,16 @@
  * Created by lei on 2019/8/14.
  */
 
+function getKind(){
+    var url_name = document.location.pathname.split("/")[2], hot_type=1;
+    if(url_name == 'whotword.html'){
+        return 1
+    }else{
+        return 0
+    }
+
+}
+
 function pullHotword(csrf){
     var
         url = "/api/manager/update/hotword",
@@ -63,6 +73,7 @@ function initTable(csrf){
     var options = {
         ele : $("#datatable"),
         pageLength : 10,
+        type: getKind(),
         csrf: csrf,
         columnDefs: [
             {
@@ -87,7 +98,7 @@ function initTable(csrf){
             { data: "crawl_url",orderable: false},
             { data: "article" },
             { data: "create_time" ,orderable: false},
-             { data: 'intro',orderable:false,searchable:false}
+            { data: 'intro',orderable:false,searchable:false}
         ]
     };
     var server_table = dt.initServerDataTable(options);
@@ -123,6 +134,7 @@ function pullKeywordArticle(data){
                 data:{
                     keyword:data.keyword,
                     crawl_url:data.url,
+                    type:data.type,
                     crawl_num:value.value
                 },
                 dataType: 'json',

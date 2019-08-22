@@ -61,8 +61,24 @@
 
 {% block js %}
     <script>
-        $(document).ready(function(){$("#update-hot").click(function(){pullHotword('{{ csrf_token }}');});initTable('{{ csrf_token }}')})
-                .on('click','.btn_article_pull',function(){var data = {url:$(this).data('url'), keyword:$(this).data('word'),csrf:'{{ csrf_token }}'};pullKeywordArticle(data);})
+
+
+        $(document).ready(function(){
+
+
+
+            $("#update-hot").click(function() {
+                pullHotword('{{ csrf_token }}');
+            });
+            initTable('{{ csrf_token }}')})
+                .on('click','.btn_article_pull',function(){
+                    var data = {
+                        url:$(this).data('url'),
+                        keyword:$(this).data('word'),
+                        type:getKind(),
+                        csrf:'{{ csrf_token }}'};
+                    pullKeywordArticle(data);
+                })
                 .on('click','.btn_update_cookie',function(){
                     var
                             data = {
