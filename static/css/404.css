@@ -82,7 +82,7 @@ overflow:hidden;
      border-radius: 5px;
        padding: 10px;
        margin: auto;
-        background-image:  url(../images/load.gif) ;
+        background-image:  url(../images/er/load.gif) ;
         background-repeat: no-repeat;
         background-position: center;
     top: 0;
@@ -95,7 +95,7 @@ overflow:hidden;
 }
 
 .sky{
-     background-image:  url(../images/sky-bg.jpg) ;
+     background-image:  url(../images/er/sky-bg.jpg) ;
 
       background-repeat: repeat-x;
 }
