@@ -8,7 +8,8 @@ __pycache__/
 
 # Macbook dir&files
 .idea/
-
+static/images/wechat/avatar/*.png
+static/images/wechat/article/*.png
 # Distribution / packaging
 .Python
 build/

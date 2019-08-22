@@ -366,33 +366,34 @@ def update_article_database(article_info, keyword=None):
 		if not Wechat.objects.filter(wechatid=_['wechat_id']).count():
 			logger.debug('正在更新公众号信息')
 			Wechat.objects.create(
-				avatar=_['wechat_avatar'],
-				qrcode=_['qrcode'],
-				name=_['wechat_name'],
-				wechatid=_['wechat_id'],
-				intro=_['wechat_desc'],
-				profile_url=_['wechat_profile_url'],
-				kind=WechatArticleKind.objects.get(label=_['label_name']),
+					avatar=_['wechat_avatar'],
+					qrcode=_['qrcode'],
+					name=_['wechat_name'],
+					wechatid=_['wechat_id'],
+					intro=_['wechat_desc'],
+					profile_url=_['wechat_profile_url'],
+					kind=WechatArticleKind.objects.get(label=_['label_name']),
 			)
 			logger.debug("更新公众号信息完成")
-
-		Article.objects.update_or_create(
-			defaults={'twpid': _['twpid']},
-			wechat=Wechat.objects.get(wechatid=_['wechat_id']),
-			title=_['title'],
-			content_url=_['content_url'],
-			source_url=_['source_url'],
-			avatar=_['cover_url'],
-			abstract=_['description'],
-			content=_['content'],
-			copyright_stat=_['copyright_stat'],
-			mas_index=_['msg_index'],
-			author=_['author'],
-			publish_time=_['publish_time'],
-			twpid=_['twpid'],
-			kind=WechatArticleKind.objects.get(label=_['label_name']),
-			hotword=Word.objects.get(keyword=keyword)
-		)
+		article_detail = {
+			"wechat": Wechat.objects.get(wechatid=_['wechat_id']),
+			"title": _['title'],
+			"content_url": _['content_url'],
+			"source_url": _['source_url'],
+			"avatar": _['cover_url'],
+			"abstract": _['description'],
+			"content": _['content'],
+			"copyright_stat": _['copyright_stat'],
+			"mas_index": _['msg_index'],
+			"author": _['author'],
+			"publish_time": _['publish_time'],
+			"twpid": _['twpid'],
+			"kind": WechatArticleKind.objects.get(label=_['label_name']),
+		}
+		if keyword is not None:
+			article_detail["hotword"] = Word.objects.get(keyword=keyword)
+		article_obj = Article(**article_detail)
+		article_obj.save()
 		logger.debug("创建热门文章完成")
 
 
@@ -451,8 +452,8 @@ class UpdateSogouHotArticleKind(LoginRequireMixin, JSONResponseMixin, View):
 
 	def post(self, requests):
 		context = {
-			'code': error_code.STATUS_ERROR,
-			'msg': ''
+			'code': error_code.STATUS_OK,
+			'msg': '更新完成'
 		}
 		sg = SogouSpider()
 		kind = sg.update_wechat_article_kind()
@@ -460,6 +461,11 @@ class UpdateSogouHotArticleKind(LoginRequireMixin, JSONResponseMixin, View):
 			for item in kind:
 				WechatArticleKind.objects.update_or_create(defaults={'name': item['name']}, name=item['name'],
 				                                           label=item['label'])
+		else:
+			context = {
+				'code': error_code.STATUS_ERROR,
+				'msg': '更新失败'
+			}
 		return JsonResponse(self.get_data(context))
 
 

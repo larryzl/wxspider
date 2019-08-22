@@ -294,4 +294,4 @@ if __name__ == '__main__':
 	file = open('a.html', 'r', encoding='utf-8')
 	str1 = file.read()
 	file.close()
-	print(BeautiHtml.wechat_article_detail_parse(str1))
+	print(BeautiHtml.sogou_article_label_parse(str1))

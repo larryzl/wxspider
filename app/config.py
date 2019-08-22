@@ -15,9 +15,9 @@ cache_dir = 'cache'
 cache_session_name = 'requests_wechatsogou_session'
 
 # mysql数据库配置
-db_host = '127.0.0.1'
+db_host = '192.168.8.24'
 db_user = 'sougou'  # 数据库用户名
 db_passwd = '123456'  # 数据库密码
-db_name = 'sgwx'  # 默认数据库
+db_name = 'sgwx_bak'  # 默认数据库
 db_charset = 'utf8mb4'
 db_port = 3306
