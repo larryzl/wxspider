@@ -420,7 +420,7 @@ class CrawlSogouHotArticle(LoginRequireMixin, JSONResponseMixin, View):
 		:return:
 		"""
 		post_data = requests.POST
-		logger.error(post_data)
+		# logger.error(post_data)
 		try:
 			kind = post_data.get('kind', 'pc_0')
 			pull_article_num = int(post_data.get('pull_num', 1))
@@ -562,12 +562,12 @@ class CrawlKeywordArticle(LoginRequireMixin, JSONResponseMixin, View):
 
 	def post(self, requests):
 		post_data = requests.POST
-		logger.error(post_data)
+		# logger.error(post_data)
 
 		keyword = post_data.get('keyword')
 		crawl_url = post_data.get('crawl_url', None)
 		crawl_num = post_data.get('crawl_num', 5)
-		logger.error('爬取文章数量: {}'.format(crawl_num))
+		logger.debug('爬取文章数量: {}'.format(crawl_num))
 		context = {}
 		sg = SogouSpider()
 		try:

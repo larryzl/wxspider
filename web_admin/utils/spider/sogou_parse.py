@@ -111,7 +111,7 @@ class BeautiHtml:
 			        "wechat_name": wechat_name}
 			article_list.append(data)
 
-		logger.error("解析搜狗热门页完成，共解析%s 条文章" % len(article_list))
+		logger.debug("解析搜狗热门页完成，共解析%s 条文章" % len(article_list))
 		return article_list
 
 	@classmethod
@@ -221,7 +221,7 @@ class BeautiHtml:
 		:return: dict
 		"""
 
-		logger.error("开始解析文章分类")
+		logger.debug("开始解析文章分类")
 		soup = BeautifulSoup(html, 'lxml')
 		label = []
 		keyword_compile = re.compile(r'<a .*>(.*)<span></span></a>')
@@ -286,7 +286,7 @@ class BeautiHtml:
 			except:
 				continue
 
-		logger.error("解析搜狗搜索页完成，共解析%s 条文章" % len(article_list))
+		logger.debug("解析搜狗搜索页完成，共解析%s 条文章" % len(article_list))
 		return article_list
 
 	@classmethod

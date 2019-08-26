@@ -255,7 +255,7 @@ class SogouSpider:
 			if len(article_list) == 0:
 				logger.error("解析搜狗页面错误，返回文章列表为空")
 				break
-			logger.error('共有 {} 条文章内容准备进入解析'.format(len(article_list)))
+			logger.debug('共有 {} 条文章内容准备进入解析'.format(len(article_list)))
 			for _ in article_list:
 				twpid = hashlib.md5(str(str(_['title']) + str(_['wechat_name'])).encode()).hexdigest()
 				logger.debug('twpid: {}'.format(twpid))
@@ -271,7 +271,7 @@ class SogouSpider:
 					logger.debug("格式化搜索页面 content_url字段")
 					_['content_url'] = self.__format_url(url=_['content_url'], referer=url, text=resp.text,
 					                                     session=session)
-					logger.error("微信临时地址为：>>%s<<" % _['content_url'])
+					logger.debug("微信临时地址为：>>%s<<" % _['content_url'])
 					if _['content_url'] == '' or _['content_url'] is None:
 						continue
 
@@ -365,26 +365,26 @@ class SogouSpider:
 
 		session = self.__session
 
-		logger.error("1 Create Session: {}".format(session))
+		# logger.error("1 Create Session: {}".format(session))
 		url = next(WechatSogouCombinedUrl.search_url(keyword))
-		logger.error("2. combined url: %s" % url)
+		# logger.error("2. combined url: %s" % url)
 		resp = self.__get(url)
 		if resp is None:
 			return None
 		if resp.status_code == requests.codes.ok:
 
 			if "请输入验证码" in resp.text:
-				logger.error("返回错误1，跳到验证码页面")
+				# logger.error("返回错误1，跳到验证码页面")
 				return None
 
-			logger.error("3. get response success")
+			# logger.error("3. get response success")
 			gzh_list = BeautiHtml.gzh_parse(resp.text)
 			for i in gzh_list:
 				if decode_url:
-					logger.error("4. update profile_url")
+					# logger.error("4. update profile_url")
 					i['profile_url'] = self.__format_url(url=i['profile_url'], referer=url, text=resp.text,
 					                                     session=session)
-					logger.error("5. new profile_url：{}".format(i['profile_url']))
+					# logger.error("5. new profile_url：{}".format(i['profile_url']))
 					if is_save_image:
 						img_url = "http:" + i['headimage']
 						qrcode_url = i['qrcode']
@@ -419,7 +419,7 @@ class SogouSpider:
 
 		try:
 			info = next(self.search_gzh(wechat_id, 1, decode_url))
-			logger.error("get_gzh_info info: ", info)
+			# logger.error("get_gzh_info info: ", info)
 			return info
 		except StopIteration:
 			return None
@@ -516,7 +516,6 @@ class SogouSpider:
 				_, name = self.__save_image(url=item['cover_url'], save_name=None, path='article')
 				if _ == 0:
 					item['cover_url'] = WXSTATIC_DIR + 'article/' + name
-					logger.error(item['cover_url'])
 				# 判断是否需要存储公众号图片
 				if not Wechat.objects.filter(wechatid=item['wechat_id']).count():
 					if 'wechat_avatar' in item.keys():
@@ -554,7 +553,7 @@ class SogouSpider:
 		:param kwargs:
 		:return: list[dict]
 		"""
-		logger.error('开始抓取关键字文章，抓取文章数:{}'.format(crawl_max))
+		logger.debug('开始抓取关键字文章，抓取文章数:{}'.format(crawl_max))
 
 		session = self.__session
 		url_list = [crawl_url] if crawl_url is not None else WechatSogouCombinedUrl.search_url(keyword=keyword, type=2)
@@ -585,7 +584,7 @@ class SogouSpider:
 		if url is None: url = "https://weixin.sogou.com/"
 		sogou_resp = self.__get(url)
 		if sogou_resp.status_code == requests.codes.ok:
-			logger.error("获取搜狗首页内容成功")
+			logger.debug("获取搜狗首页内容成功")
 			hotword_list = BeautiHtml.sogou_hotword(sogou_resp.text)
 			return hotword_list
 		else:
@@ -601,7 +600,7 @@ class SogouSpider:
 		if url is None: url = "https://s.weibo.com/top/summary?Refer=top_ho"
 		resp = self.__get(url, referer='https://weibo.com', session=requests.session(), headers=headers)
 		if resp.status_code == requests.codes.ok:
-			logger.error("获取微博热搜页内容成功")
+			logger.debug("获取微博热搜页内容成功")
 			hotword_list = BeautiHtml.weibo_tophot_parse(resp.text)
 
 			return hotword_list

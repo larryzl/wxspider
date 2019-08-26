@@ -27,7 +27,7 @@ class Wechat(models.Model):
 	)
 	avatar = models.CharField(max_length=500, blank=True, default='', verbose_name='公众号头像')
 	qrcode = models.CharField(max_length=500, blank=True, default='', verbose_name='二维码')
-	name = models.CharField(max_length=100, verbose_name='公众号名称', unique=True)
+	name = models.CharField(max_length=100, verbose_name='公众号名称', unique=False)
 	wechatid = models.CharField(max_length=100, verbose_name='公众号id', unique=True)
 	intro = models.TextField(default='', blank=True, verbose_name='简介')
 	crawl_time1 = models.TimeField(null=True, blank=True, verbose_name='爬取时间')
