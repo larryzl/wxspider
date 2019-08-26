@@ -79,7 +79,6 @@ class JSONResponseMixin:
 		return context
 
 
-# @method_decorator(csrf_exempt,)
 class GzhCreate(LoginRequireMixin, JSONResponseMixin, CreateView):
 	model = Wechat
 	fields = ['name', 'wechatid', 'frequency']
@@ -305,12 +304,11 @@ class HotwordList(LoginRequireMixin, JSONResponseMixin, View):
 		# print(search_kind_name)
 
 		kind = post_data.get('type',0)
-		logger.debug(post_data)
 
 		if kind == 0:
 			hotword_list = Word.objects.filter(kind=int(kind)).order_by('-create_time')
 		else:
-			hotword_list = Word.objects.filter(kind=int(kind)).order_by('create_time')
+			hotword_list = Word.objects.filter(kind=int(kind)).order_by('-create_time')
 
 		result_length = hotword_list.count()
 		display_length = request.POST.get('length', 10)
