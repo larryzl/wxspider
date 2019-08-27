@@ -369,38 +369,42 @@ def update_article_database(article_info, keyword=None):
 	for _ in article_info:
 		# 判断公众号是否存在
 		# wechat_id = _['wechat_id']
-		if not Wechat.objects.filter(wechatid=_['wechat_id']).count():
-			logger.debug('正在更新公众号信息')
-			Wechat.objects.create(
-					avatar=_['wechat_avatar'],
-					qrcode=_['qcode'],
-					name=_['wechat_name'],
-					wechatid=_['wechat_id'],
-					intro=_['wechat_desc'],
-					profile_url=_['wechat_profile_url'],
-					kind=WechatArticleKind.objects.get(label=_['label_name']),
-			)
-			logger.debug("更新公众号信息完成")
-		article_detail = {
-			"wechat": Wechat.objects.get(wechatid=_['wechat_id']),
-			"title": _['title'],
-			"content_url": _['content_url'],
-			"source_url": _['source_url'],
-			"avatar": _['cover_url'],
-			"abstract": _['description'],
-			"content": _['content'],
-			"copyright_stat": _['copyright_stat'],
-			"mas_index": _['msg_index'],
-			"author": _['author'],
-			"publish_time": _['publish_time'],
-			"twpid": _['twpid'],
-			"kind": WechatArticleKind.objects.get(label=_['label_name']),
-		}
-		if keyword is not None:
-			article_detail["hotword"] = Word.objects.get(keyword=keyword)
-		article_obj = Article(**article_detail)
-		article_obj.save()
-		logger.debug("创建热门文章完成")
+		try:
+			if not Wechat.objects.filter(wechatid=_['wechat_id']).count():
+				logger.debug('正在更新公众号信息')
+				Wechat.objects.create(
+						avatar=_['wechat_avatar'],
+						qrcode=_['qcode'],
+						name=_['wechat_name'],
+						wechatid=_['wechat_id'],
+						intro=_['wechat_desc'],
+						profile_url=_['wechat_profile_url'],
+						kind=WechatArticleKind.objects.get(label=_['label_name']),
+				)
+				logger.debug("更新公众号信息完成")
+			article_detail = {
+				"wechat": Wechat.objects.get(wechatid=_['wechat_id']),
+				"title": _['title'],
+				"content_url": _['content_url'],
+				"source_url": _['source_url'],
+				"avatar": _['cover_url'],
+				"abstract": _['description'],
+				"content": _['content'],
+				"copyright_stat": _['copyright_stat'],
+				"mas_index": _['msg_index'],
+				"author": _['author'],
+				"publish_time": _['publish_time'],
+				"twpid": _['twpid'],
+				"kind": WechatArticleKind.objects.get(label=_['label_name']),
+			}
+			if keyword is not None:
+				article_detail["hotword"] = Word.objects.get(keyword=keyword)
+
+			article_obj = Article(**article_detail)
+			article_obj.save()
+			logger.debug("创建热门文章完成")
+		except Exception as e:
+			logger.error('创建热门文章失败，原因: {}'.format(e))
 
 
 class CrawlSogouHotArticle(LoginRequireMixin, JSONResponseMixin, View):

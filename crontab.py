@@ -52,31 +52,50 @@ class CrondFunc:
 		# 更新keyword
 		sg = SogouSpider()
 		logger.debug('更新分类：{}'.format(kind))
-		if int(kind) == 0:
-			hotword_list = sg.update_sogou_hotword()
-			if len(hotword_list) > 0:
-				for item in hotword_list:
-					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
-					if not Word.objects.filter(hwid=hwid).count():
-						Word.objects.update_or_create(keyword=item['keyword'],
-						                              crawl_url=item['crawl_url'], hwid=hwid, kind=0)
 
+		kind = int(kind)
+
+		if kind == 0:
+			hotword_list = sg.update_sogou_hotword()
 		else:
 			hotword_list = sg.update_weibo_hotword()
-			if len(hotword_list) > 0:
-				for item in hotword_list:
-					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
-					if not Word.objects.filter(hwid=hwid).count():
-						Word.objects.create(keyword=item['keyword'],
-						                    crawl_url=item['crawl_url'], hwid=hwid, kind=1)
+		if not isinstance(hotword_list, list):
+			logger.error("获取关键词格式错误")
+			assert "获取关键词格式错误"
 
-		for item in hotword_list:
-			keyword = item['keyword']
-			logger.debug('抓取关键词:{}'.format(keyword))
+		if len(hotword_list) <= 0:
+			logger.error("获取关键词数量为0")
+			return False
+
+		keyword_num = 0
+		for _ in hotword_list:
+
+			keyword = _.get('keyword', None)
+			if keyword is not None:
+				logger.error('未获取到关键词，跳过')
+				continue
+			else:
+				logger.debug('抓取关键词: {}'.format(keyword))
+				keyword_num += 1
+
+			hwid = hashlib.md5(str(keyword).encode()).hexdigest()
+
+			if not Word.objects.filter(hwid=hwid).count():
+				# 如果不存在 hwid 创建关键词
+				try:
+					Word.objects.create(keyword=keyword,
+					                    crawl_url=_['crawl_url'], hwid=hwid, kind=kind)
+					logger.debug('创建关键词成功, 关键词: {} . 关键词hwid: {}'.format(keyword, hwid))
+				except Exception as e:
+					logger.error('创建关键词错误，关键词: {} ,错误原因: {}'.format(keyword, e))
+			else:
+				logger.debug('关键词: {} 已存在'.format(keyword))
+
 			article_info = sg.crawl_keyword_articles(keyword=keyword, crawl_max=crawl_num)
 
-			if not Word.objects.filter(keyword=keyword).count():
-				Word.objects.update_or_create(keyword=keyword)
+			if not isinstance(article_info, list):
+				logger.error('抓取文章信息失败,文章关键词: {}'.format(keyword))
+				continue
 
 			update_article_database(article_info, keyword=keyword)
 
