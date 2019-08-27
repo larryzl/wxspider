@@ -69,9 +69,9 @@ class CrondFunc:
 
 		keyword_num = 0
 		for _ in hotword_list:
-
+			logger.debug(_)
 			keyword = _.get('keyword', None)
-			if keyword is not None:
+			if keyword is None:
 				logger.error('未获取到关键词，跳过')
 				continue
 			else:
@@ -98,6 +98,9 @@ class CrondFunc:
 				continue
 
 			update_article_database(article_info, keyword=keyword)
+
+		logger.debug('爬取完成，共爬取了 {} 个关键词'.format(keyword_num))
+
 
 
 if __name__ == '__main__':
