@@ -70,8 +70,8 @@ class CrondFunc:
 						Word.objects.create(keyword=item['keyword'],
 						                    crawl_url=item['crawl_url'], hwid=hwid, kind=1)
 
-		for keyword in hotword_list:
-
+		for item in hotword_list:
+			keyword = item['keyword']
 			logger.debug('抓取关键词:{}'.format(keyword))
 			article_info = sg.crawl_keyword_articles(keyword=keyword, crawl_max=crawl_num)
 
