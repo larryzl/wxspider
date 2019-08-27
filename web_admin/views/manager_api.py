@@ -373,7 +373,7 @@ def update_article_database(article_info, keyword=None):
 			logger.debug('正在更新公众号信息')
 			Wechat.objects.create(
 					avatar=_['wechat_avatar'],
-					qrcode=_['qrcode'],
+					qrcode=_['qcode'],
 					name=_['wechat_name'],
 					wechatid=_['wechat_id'],
 					intro=_['wechat_desc'],
