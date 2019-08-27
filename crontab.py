@@ -68,8 +68,8 @@ class CrondFunc:
 					Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
 					                              crawl_url=item['crawl_url'], hwid=hwid, kind=1)
 
-		for keyword in Word.objects.filter(kind=int(kind)).order_by('-create_time')[:10]:
-
+		for word_obj in Word.objects.filter(kind=int(kind)).order_by('-create_time')[:10]:
+			keyword = word_obj.keyword
 			article_info = sg.crawl_keyword_articles(keyword=keyword, crawl_max=crawl_num)
 
 			if not Word.objects.filter(keyword=keyword).count():
