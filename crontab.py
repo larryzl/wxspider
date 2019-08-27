@@ -57,16 +57,18 @@ class CrondFunc:
 			if len(hotword_list) > 0:
 				for item in hotword_list:
 					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
-					Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
-					                              crawl_url=item['crawl_url'], hwid=hwid, kind=0)
+					if not Word.objects.filter(hwid=hwid).count():
+						Word.objects.update_or_create(keyword=item['keyword'],
+						                              crawl_url=item['crawl_url'], hwid=hwid, kind=0)
 
 		else:
 			hotword_list = sg.update_weibo_hotword()
 			if len(hotword_list) > 0:
 				for item in hotword_list:
 					hwid = hashlib.md5(str(item['keyword']).encode()).hexdigest()
-					Word.objects.update_or_create(defaults={'hwid': hwid}, keyword=item['keyword'],
-					                              crawl_url=item['crawl_url'], hwid=hwid, kind=1)
+					if not Word.objects.filter(hwid=hwid).count():
+						Word.objects.create(keyword=item['keyword'],
+						                    crawl_url=item['crawl_url'], hwid=hwid, kind=1)
 
 		for word_obj in Word.objects.filter(kind=int(kind)).order_by('-create_time')[:10]:
 			keyword = word_obj.keyword
@@ -78,9 +80,9 @@ class CrondFunc:
 
 			update_article_database(article_info, keyword=keyword)
 
+
 if __name__ == '__main__':
 	if sys.argv[1] == 'hotarticle':
 		CrondFunc.crond_crawl_hot_article()
 	elif sys.argv[1] == 'keyword':
-		CrondFunc.crond_crawl_keyword_article(kind=sys.argv[2],crawl_num=sys.argv[3])
-
+		CrondFunc.crond_crawl_keyword_article(kind=sys.argv[2], crawl_num=sys.argv[3])
