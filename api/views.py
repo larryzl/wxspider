@@ -22,6 +22,8 @@ class P1(PageNumberPagination):
 
         paginator = self.django_paginator_class(queryset, page_size)
         page_number = request.data.get('page', 1)
+        print(page_number)
+        self.is_first_number = True if page_number == str(1) else False
         if page_number in self.last_page_strings:
             page_number = paginator.num_pages
 
@@ -39,12 +41,20 @@ class P1(PageNumberPagination):
         return list(self.page)
 
     def get_paginated_response(self, data):
-        return Response(
-            {
+
+        resp = {
+            'code': 0,
+            'newsList': data,
+            'newsBanner':
+                []
+        }
+        print(self.is_first_number)
+        if not self.is_first_number:
+            resp = {
                 'code': 0,
-                'newsList': data
+                'newsList': data,
             }
-        )
+        return Response(resp)
 
 
 class ArticleView(APIView):
@@ -76,13 +86,14 @@ class DetailView(APIView):
             article_detail = None
             return Response({'code': 2, 'newsDetail': [], 'msg': 'article not found'})
         serializer = DetailSerializers(instance=article_detail, many=False)
-        return HttpResponse(json.dumps(serializer.data, ensure_ascii=False))
+        return Response({'code': 0, 'newsDetail': json.dumps(serializer.data, ensure_ascii=False)})
+
 
 class TopicView(APIView):
-    def get(self,request):
+    def get(self, request):
         return Response({'code': 1, 'newsDetail': [], 'msg': 'method not allow'})
 
     def post(self, request):
         topic_list = WechatArticleKind.objects.all()
         serializer = TopicSerializers(instance=topic_list, many=True)
-        return HttpResponse(json.dumps(serializer.data, ensure_ascii=False))
+        return Response({'code': 0, 'message': '请求成功', 'data': json.dumps(serializer.data, ensure_ascii=False)})

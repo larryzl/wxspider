@@ -30,7 +30,7 @@ class ArticleSerializers(serializers.Serializer):
     news_style = serializers.SerializerMethodField()
 
     def get_news_icon(self, row):
-        return [row.avatar]
+        return ["http://192.168.8.24"+row.avatar]
 
     def get_news_style(self, row):
         return 1
