@@ -65,7 +65,7 @@ class ArticleView(APIView):
         data = request.data
         kind = data.get('chid')
 
-        article_list = Article.objects.filter(kind__name=kind).order_by('-publish_time')
+        article_list = Article.objects.filter(kind__uuid=kind).order_by('-publish_time')
 
         p1 = P1()
         page_article_list = p1.paginate_queryset(queryset=article_list, request=request, view=self)
@@ -94,6 +94,6 @@ class TopicView(APIView):
         return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
 
     def post(self, request):
-        topic_list = WechatArticleKind.objects.all()
+        topic_list = WechatArticleKind.objects.all().order_by('label')
         serializer = TopicSerializers(instance=topic_list, many=True)
         return Response({'code': 0, 'message': '请求成功', 'data': serializer.data})

@@ -50,8 +50,9 @@ class DetailSerializers(serializers.Serializer):
 class TopicSerializers(serializers.Serializer):
     lanmu_id = serializers.CharField(source='uuid',max_length=32)
     lanmu_name = serializers.CharField(source='name',max_length=32)
-    # lanmu_order =
-    # lanmu_menu =
-    # lanmu_custom =
-    # lanmu_json =
+    lanmu_order = serializers.IntegerField(default=1)
+    lanmu_menu = serializers.IntegerField(default=1)
+    lanmu_custom = serializers.IntegerField(default=1)
+    lanmu_json = serializers.CharField(default='',max_length=32)
+
 
