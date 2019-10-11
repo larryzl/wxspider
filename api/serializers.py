@@ -25,15 +25,18 @@ class ArticleSerializers(serializers.Serializer):
     news_title = serializers.CharField(source='title', max_length=32)
     news_chid = serializers.CharField(source='kind.name', max_length=32)
     news_commont = serializers.IntegerField(source='comment_count')
-    news_datetime = serializers.DateTimeField(source='publish_time')
+    news_datetime = serializers.SerializerMethodField()
     news_icon = serializers.SerializerMethodField()
     news_style = serializers.SerializerMethodField()
+
+    def get_news_datetime(self, row):
+        return str(row.publish_time.strftime("%Y-%m-%d"))
 
     def get_news_icon(self, row):
         return ["http://192.168.8.24"+row.avatar]
 
     def get_news_style(self, row):
-        return 1
+        return 3
 
 
 class DetailSerializers(serializers.Serializer):

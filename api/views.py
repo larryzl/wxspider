@@ -21,8 +21,11 @@ class P1(PageNumberPagination):
             return None
 
         paginator = self.django_paginator_class(queryset, page_size)
+
         page_number = request.data.get('page', 1)
-        print(page_number)
+        if page_number == '0':
+            page_number = 1
+
         self.is_first_number = True if page_number == str(1) else False
         if page_number in self.last_page_strings:
             page_number = paginator.num_pages
@@ -64,8 +67,11 @@ class ArticleView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         kind = data.get('chid')
-
-        article_list = Article.objects.filter(kind__uuid=kind).order_by('-publish_time')
+        page = data.get('page')
+        if kind == '0':
+            article_list = Article.objects.filter(kind__name='热门').order_by('-publish_time')
+        else:
+            article_list = Article.objects.filter(kind__uuid=kind).order_by('-publish_time')
 
         p1 = P1()
         page_article_list = p1.paginate_queryset(queryset=article_list, request=request, view=self)
