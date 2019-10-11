@@ -96,4 +96,4 @@ class TopicView(APIView):
     def post(self, request):
         topic_list = WechatArticleKind.objects.all()
         serializer = TopicSerializers(instance=topic_list, many=True)
-        return Response({'code': 0, 'message': '请求成功', 'data': json.dumps(serializer.data, ensure_ascii=False)})
+        return Response({'code': 0, 'message': '请求成功', 'data': serializer.data})
