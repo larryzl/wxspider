@@ -86,7 +86,7 @@ class DetailView(APIView):
             article_detail = None
             return Response({'code': 2, 'newsDetail': [], 'msg': 'article not found'})
         serializer = DetailSerializers(instance=article_detail, many=False)
-        return Response({'code': 0, 'newsDetail': json.dumps(serializer.data, ensure_ascii=False)})
+        return Response({'code': 0, 'newsDetail': serializer.data})
 
 
 class TopicView(APIView):
