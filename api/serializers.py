@@ -33,7 +33,7 @@ class ArticleSerializers(serializers.Serializer):
         return str(row.publish_time.strftime("%Y-%m-%d"))
 
     def get_news_icon(self, row):
-        return ["http://192.168.8.24"+row.avatar]
+        return ["http://192.168.8.24" + row.avatar]
 
     def get_news_style(self, row):
         return 2
@@ -45,17 +45,16 @@ class DetailSerializers(serializers.Serializer):
     news_date = serializers.SerializerMethodField()
 
     def get_news_content(self, row):
-        return str(row.content)
+        return str(row.content).replace('data-src=', 'src=')
 
     def get_news_date(self, row):
         return str(row.publish_time.strftime("%Y-%m-%d"))
 
+
 class TopicSerializers(serializers.Serializer):
-    lanmu_id = serializers.CharField(source='uuid',max_length=32)
-    lanmu_name = serializers.CharField(source='name',max_length=32)
+    lanmu_id = serializers.CharField(source='uuid', max_length=32)
+    lanmu_name = serializers.CharField(source='name', max_length=32)
     lanmu_order = serializers.IntegerField(default=1)
     lanmu_menu = serializers.IntegerField(default=1)
     lanmu_custom = serializers.IntegerField(default=1)
-    lanmu_json = serializers.CharField(default='',max_length=32)
-
-
+    lanmu_json = serializers.CharField(default='', max_length=32)
