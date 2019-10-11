@@ -36,7 +36,7 @@ class ArticleSerializers(serializers.Serializer):
         return ["http://192.168.8.24"+row.avatar]
 
     def get_news_style(self, row):
-        return 3
+        return 2
 
 
 class DetailSerializers(serializers.Serializer):
