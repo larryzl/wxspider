@@ -14,14 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path,include,path
+from django.urls import re_path, include, path
 from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('^user/',include('web_admin.urls.account_urls')),
-    re_path('^wechat/',include('web_admin.urls.manager_urls')),
-    re_path('^api/manager/',include('web_admin.urls.api_urls')),
+    re_path('^user/', include('web_admin.urls.account_urls')),
+    re_path('^wechat/', include('web_admin.urls.manager_urls')),
+    re_path('^api/manager/', include('web_admin.urls.api_urls')),
+    re_path('^api/v1/', include('api.urls'))
     # views urls
     # re_path(r'^wxopen/',include('wxopen.urls.views_urls')),
     # api urls
