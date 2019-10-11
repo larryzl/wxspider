@@ -59,7 +59,7 @@ class P1(PageNumberPagination):
 
 class ArticleView(APIView):
     def get(self, request):
-        return Response({'code': 1, 'newsList': [], 'msg': 'method not allow'})
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
 
     def post(self, request, *args, **kwargs):
         data = request.data
@@ -76,7 +76,7 @@ class ArticleView(APIView):
 
 class DetailView(APIView):
     def get(self, request):
-        return Response({'code': 1, 'newsDetail': [], 'msg': 'method not allow'})
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
 
     def post(self, request):
         id = request.data.get('id')
@@ -91,7 +91,7 @@ class DetailView(APIView):
 
 class TopicView(APIView):
     def get(self, request):
-        return Response({'code': 1, 'newsDetail': [], 'msg': 'method not allow'})
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
 
     def post(self, request):
         topic_list = WechatArticleKind.objects.all()
