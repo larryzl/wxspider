@@ -33,7 +33,7 @@ class ArticleSerializers(serializers.Serializer):
         return str(row.publish_time.strftime("%Y-%m-%d"))
 
     def get_news_icon(self, row):
-        return ["http://192.168.8.24" + row.avatar]
+        return ["http://wx.vmatch.net" + row.avatar]
 
     def get_news_style(self, row):
         return 2
