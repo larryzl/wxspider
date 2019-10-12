@@ -24,9 +24,9 @@ class P1(PageNumberPagination):
 
         page_number = request.data.get('page', 1)
         if page_number == '0':
-            page_number = 1
+            page_number = '1'
 
-        self.is_first_number = True if page_number == str(1) else False
+        self.is_first_number = True if page_number == '1' else False
         if page_number in self.last_page_strings:
             page_number = paginator.num_pages
 
@@ -44,15 +44,24 @@ class P1(PageNumberPagination):
         return list(self.page)
 
     def get_paginated_response(self, data):
+        if self.is_first_number:
 
-        resp = {
-            'code': 0,
-            'newsList': data,
-            'newsBanner':
-                []
-        }
-        print(self.is_first_number)
-        if not self.is_first_number:
+            banner_data = [data.pop() for x in range(3)]
+            for b in banner_data:
+                b.pop('news_chid')
+                b.pop('news_commont')
+                b.pop('news_datetime')
+                b['news_style'] = 1
+            print(banner_data)
+
+
+            resp = {
+                'code': 0,
+                'newsList': data,
+                'newsBanner':
+                    banner_data
+            }
+        else:
             resp = {
                 'code': 0,
                 'newsList': data,
@@ -62,7 +71,7 @@ class P1(PageNumberPagination):
 
 class ArticleView(APIView):
     def get(self, request):
-        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'}, ensure_ascii=False))
 
     def post(self, request, *args, **kwargs):
         data = request.data
@@ -82,7 +91,7 @@ class ArticleView(APIView):
 
 class DetailView(APIView):
     def get(self, request):
-        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'}, ensure_ascii=False))
 
     def post(self, request):
         id = request.data.get('id')
@@ -97,7 +106,7 @@ class DetailView(APIView):
 
 class TopicView(APIView):
     def get(self, request):
-        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'},ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 1, 'newsDetail': [], 'msg': 'method not allow'}, ensure_ascii=False))
 
     def post(self, request):
         topic_list = WechatArticleKind.objects.all().order_by('label')
