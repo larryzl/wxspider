@@ -1,4 +1,4 @@
-django==2.0.0
+django==2.2.13
 pymysql==0.9.3
 requests==2.6.0
 selenium==3.141.0
